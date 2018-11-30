@@ -7,11 +7,11 @@ from subprocess import call
 
 from setuptools import Command, find_packages, setup
 
-from skele import __version__
+from vcb import __version__
 
 
 this_dir = abspath(dirname(__file__))
-with open(join(this_dir, 'README.rst'), encoding='utf-8') as file:
+with open(join(this_dir, 'README.md'), encoding='utf-8') as file:
     long_description = file.read()
 
 
@@ -28,18 +28,18 @@ class RunTests(Command):
 
     def run(self):
         """Run all tests!"""
-        errno = call(['py.test', '--cov=skele', '--cov-report=term-missing'])
+        errno = call(['py.test', '--cov=vcb', '--cov-report=term-missing'])
         raise SystemExit(errno)
 
 
 setup(
-    name = 'skele',
+    name = 'vcb',
     version = __version__,
-    description = 'A skeleton command line program in Python.',
+    description = 'A command line program to help learn vocab',
     long_description = long_description,
-    url = 'https://github.com/rdegges/skele-cli',
-    author = 'Randall Degges',
-    author_email = 'r@rdegges.com',
+    url = 'https://github.com/natestemen/vocab',
+    author = 'Nate Stemen',
+    author_email = 'nathanielstemen@gmail.com',
     license = 'UNLICENSE',
     classifiers = [
         'Intended Audience :: Developers',
@@ -63,7 +63,7 @@ setup(
     },
     entry_points = {
         'console_scripts': [
-            'skele=skele.cli:main',
+            'vcb=vcb.cli:main',
         ],
     },
     cmdclass = {'test': RunTests},

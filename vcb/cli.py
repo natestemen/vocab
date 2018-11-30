@@ -1,21 +1,21 @@
 """
-skele
+vcb
 
 Usage:
-  skele hello
-  skele -h | --help
-  skele --version
+  vcb hello
+  vcb -h | --help
+  vcb --version
 
 Options:
   -h --help                         Show this screen.
   --version                         Show version.
 
 Examples:
-  skele hello
+  vcb hello
 
 Help:
   For help using this tool, please open an issue on the Github repository:
-  https://github.com/rdegges/skele-cli
+  https://github.com/natestemen/vocab
 """
 
 
@@ -28,7 +28,7 @@ from . import __version__ as VERSION
 
 def main():
     """Main CLI entrypoint."""
-    import skele.commands
+    import vcb.commands
     options = docopt(__doc__, version=VERSION)
 
     # Here we'll try to dynamically match the command the user is trying to run
