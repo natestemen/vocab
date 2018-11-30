@@ -3,6 +3,7 @@ vcb
 
 Usage:
   vcb hello
+  vcb set <path>
   vcb -h | --help
   vcb --version
 
