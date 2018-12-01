@@ -3,7 +3,7 @@ vcb
 
 Usage:
   vcb hello
-  vcb set <name>
+  vcb create <name>
   vcb -h | --help
   vcb --version
 

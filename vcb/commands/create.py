@@ -1,4 +1,4 @@
-"""The set command."""
+"""The create command."""
 
 
 import yaml
@@ -8,8 +8,8 @@ import os
 from .base import Base
 
 
-class Set(Base):
-    """do some required setup"""
+class Create(Base):
+    """do some required setup for a new vocab set"""
 
     def run(self):
         home_directory = os.path.expanduser('~')
