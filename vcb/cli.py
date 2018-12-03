@@ -5,6 +5,7 @@ Usage:
   vcb hello
   vcb create <name>
   vcb use <name>
+  vcb add <key> <value>
   vcb -h | --help
   vcb --version
 
