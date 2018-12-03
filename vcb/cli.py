@@ -4,6 +4,7 @@ vcb
 Usage:
   vcb hello
   vcb create <name>
+  vcb use <name>
   vcb -h | --help
   vcb --version
 
