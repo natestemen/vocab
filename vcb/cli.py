@@ -2,7 +2,6 @@
 vcb
 
 Usage:
-  vcb hello
   vcb create <name>
   vcb use <name>
   vcb add <key> <value>
@@ -15,7 +14,9 @@ Options:
   --version                         Show version.
 
 Examples:
-  vcb hello
+  vcb create spanish
+  vcb add hello hola
+  vcb use mandarin
 
 Help:
   For help using this tool, please open an issue on the Github repository:
