@@ -24,7 +24,7 @@ class Create(Base):
         if not os.path.isfile(new_vocab_file):
             with open(new_vocab_file, 'x') as f:
                 writer = csv.writer(f, delimiter=',')
-                writer.writerow(['key', 'value'])
+                writer.writerow(['key', 'value', 'date_added'])
             with open(vocabrc_file) as f:
                 vocabrc = yaml.load(f)
             vocabrc['current_vocab'] = self.options['<name>']

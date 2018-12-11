@@ -5,6 +5,8 @@ from ruamel.yaml import YAML
 
 import os.path
 
+from datetime import datetime
+
 import csv
 
 from .base import Base
@@ -25,5 +27,5 @@ class Add(Base):
         vocab_file = os.path.join(vocab_directory, current_vocab)
         with open(vocab_file, 'a') as f:
             writer = csv.writer(f)
-            writer.writerow([key, value])
+            writer.writerow([key, value, datetime.now()])
         print('{} <-> {} has been added to your vocab'.format(key, value))
