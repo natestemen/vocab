@@ -1,6 +1,7 @@
 """The create command."""
 
 from ruamel.yaml import YAML
+import csv
 
 import os
 
@@ -21,7 +22,9 @@ class Create(Base):
                 yaml.dump({'current_vocab': None}, f)
         new_vocab_file = os.path.join(vocab_directory, self.options['<name>'])
         if not os.path.isfile(new_vocab_file):
-            open(new_vocab_file, 'x').close()
+            with open(new_vocab_file, 'x') as f:
+                writer = csv.writer(f, delimiter=',')
+                writer.writerow(['key', 'value'])
             with open(vocabrc_file) as f:
                 vocabrc = yaml.load(f)
             vocabrc['current_vocab'] = self.options['<name>']
