@@ -6,6 +6,7 @@ Usage:
   vcb use <name>
   vcb add <key> <value>
   vcb status
+  vcb practice
   vcb -h | --help
   vcb --version
 
