@@ -7,6 +7,7 @@ Usage:
   vcb add <key> <value>
   vcb status
   vcb practice
+  vcb top [--number=<num>]
   vcb -h | --help
   vcb --version
 
@@ -26,9 +27,7 @@ Help:
 
 
 from inspect import getmembers, isclass
-
 from docopt import docopt
-
 from . import __version__ as VERSION
 
 

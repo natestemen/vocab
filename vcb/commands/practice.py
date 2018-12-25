@@ -1,11 +1,10 @@
 """The practice command."""
 
 import csv
-
 from ruamel.yaml import YAML
-
 import os.path
-
+from termcolor import colored
+from random import shuffle
 from .base import Base
 
 class Practice(Base):
@@ -20,11 +19,12 @@ class Practice(Base):
             current_vocab = yaml.load(f)['current_vocab']
         vocab_file = os.path.join(vocab_directory, current_vocab)
         with open(vocab_file) as f:
-            reader = csv.DictReader(f)
+            reader = list(csv.DictReader(f))
+            shuffle(reader)
             for row in reader:
-                print(row['key'])
+                print('Prompt:', colored(row['key'], attrs=['bold']))
                 guess = input()
                 if guess == row['value']:
-                    continue
+                    print(colored('Correct!', 'green'))
                 else:
-                    print('sorry, it was', row['value'])
+                    print(colored('Incorrect', 'red'), 'it is', colored(row['value'], 'red', attrs=['underline']))
