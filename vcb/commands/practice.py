@@ -1,6 +1,5 @@
 """The practice command."""
 
-import csv
 import pandas as pd
 from ruamel.yaml import YAML
 import os.path
@@ -21,6 +20,8 @@ class Practice(Base):
         vocab_file = os.path.join(vocab_directory, current_vocab)
         with open(vocab_file) as f:
             vocab_data = pd.read_csv(f)
+        if not self.options['--ordered']:
+            vocab_data = vocab_data.sample(frac=1)
         for _, row in vocab_data.iterrows():
             print('Prompt:', colored(row['key'], attrs=['bold']))
             guess = input()

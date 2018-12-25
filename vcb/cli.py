@@ -6,7 +6,7 @@ Usage:
   vcb use <name>
   vcb add <key> <value>
   vcb status
-  vcb practice [--reverse|--both]
+  vcb practice [--reverse|--both] [--ordered]
   vcb top [--number=<num>]
   vcb -h | --help
   vcb --version
