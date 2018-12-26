@@ -2,13 +2,11 @@
 
 
 from ruamel.yaml import YAML
-
 import os.path
-
 from datetime import datetime
-
 import csv
-
+import pandas as pd
+from termcolor import colored
 from .base import Base
 
 
@@ -25,6 +23,12 @@ class Add(Base):
         with open(vocabrc_file) as f:
             current_vocab = yaml.load(f)['current_vocab']
         vocab_file = os.path.join(vocab_directory, current_vocab)
+        with open(vocab_file) as f:
+            vocab_data = pd.read_csv(f)
+        if key in vocab_data.key.values:
+            print(colored('Sorry, you already have that key in your vocab', 'red'))
+            print(colored('{} <-> {} already exists. Keys and values must be unique'.format(key, vocab_data[vocab_data.key == key].value[0]), 'yellow'))
+            return
         with open(vocab_file, 'a') as f:
             writer = csv.writer(f)
             writer.writerow([key, value, datetime.now()])
