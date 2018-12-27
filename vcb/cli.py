@@ -38,7 +38,7 @@ def main():
 
     # Here we'll try to dynamically match the command the user is trying to run
     # with a pre-defined command class we've already created.
-    for (k, v) in options.items(): 
+    for k, v in options.items(): 
         if hasattr(vcb.commands, k) and v:
             module = getattr(vcb.commands, k)
             vcb.commands = getmembers(module, isclass)
