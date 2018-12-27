@@ -25,7 +25,7 @@ class Add(Base):
             print(
                 colored(
                     "{} <-> {} already exists. Keys and values must be unique".format(
-                        key, vocab_data[vocab_data.key == key].value.values[0]
+                        key, self.show_tones(vocab_data[vocab_data.key == key].value.values[0])
                     ),
                     "yellow",
                 )
@@ -34,4 +34,4 @@ class Add(Base):
         with open(vocab_file, "a") as f:
             writer = csv.writer(f)
             writer.writerow([key, value, datetime.now()])
-        print("{} <-> {} has been added to your vocab".format(key, value))
+        print("{} <-> {} has been added to your vocab".format(key, self.show_tones(value)))

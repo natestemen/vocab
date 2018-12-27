@@ -30,11 +30,11 @@ class Practice(Base):
                 correct += 1
                 print(colored("Correct!", "green"))
                 if self.options["--no-tones"]:
-                    print("With tones its:", colored(row["tone"], "yellow"))
+                    print("With tones its:", colored(self.show_tones(row["tone"]), "yellow"))
             else:
                 print(
                     colored("Incorrect", "red"),
                     "it is",
-                    colored(row["value"], "red", attrs=["underline"]),
+                    colored(self.show_tones(row["value"]), "red", attrs=["underline"]),
                 )
         print("Score:", correct, "/", len(vocab_data))
