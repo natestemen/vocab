@@ -23,4 +23,4 @@ class Status(Base):
             return
         with open(self.vocabrc) as f:
             dat = yaml.load(f)
-        print("Current vocab is set to", dat["current_vocab"])
+        print("Current vocab is set to", colored(dat["current_vocab"], "green") + ".")

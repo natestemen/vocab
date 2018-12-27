@@ -8,6 +8,7 @@ Usage:
   vcb status
   vcb practice [--reverse|--both] [--ordered] [--no-tones]
   vcb top [--number=<num>]
+  vcb list
   vcb -h | --help
   vcb --version
 
