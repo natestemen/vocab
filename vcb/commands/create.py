@@ -21,15 +21,10 @@ class Create(Base):
         if not os.path.isfile(new_vocab_file):
             with open(new_vocab_file, "x") as f:
                 writer = csv.writer(f, delimiter=",")
-                writer.writerow(["key", "value", "date_added"])
-            with open(self.vocabrc) as f:
-                vocabrc = yaml.load(f)
-            vocabrc["current_vocab"] = self.options["<name>"]
-            with open(self.vocabrc, "w") as f:
-                yaml.dump(vocabrc, f)
-            print("Your vocab path has been set to", new_vocab_file)
+                writer.writerow(["key", "value"])
+            self.update_current_vocab()
         else:
             print(
                 "You already have a vocab under that name please try "
-                "another name or add vocab to that file"
+                "another name or switch to that vocab and add to that."
             )

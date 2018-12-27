@@ -6,7 +6,6 @@ import os.path
 from datetime import datetime
 
 import pandas as pd
-from ruamel.yaml import YAML
 from termcolor import colored
 
 from .base import Base

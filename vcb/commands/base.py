@@ -3,6 +3,7 @@
 import os.path
 
 from ruamel.yaml import YAML
+from termcolor import colored
 
 
 class Base(object):
@@ -24,6 +25,15 @@ class Base(object):
 
     def current_vocab_file(self):
         return os.path.join(self.vocab_dir, self.current_vocab())
+
+    def update_current_vocab(self):
+        yaml = YAML()
+        with open(self.vocabrc) as f:
+            vocabrc = yaml.load(f)
+        vocabrc["current_vocab"] = self.options["<name>"]
+        with open(self.vocabrc, "w") as f:
+            yaml.dump(vocabrc, f)
+        print("You are now using {}.".format(colored(self.options["<name>"], "green")))
 
     def run(self):
         raise NotImplementedError("You must implement the run() method yourself!")

@@ -4,7 +4,6 @@ import os.path
 from random import shuffle
 
 import pandas as pd
-from ruamel.yaml import YAML
 from termcolor import colored
 
 from .base import Base
