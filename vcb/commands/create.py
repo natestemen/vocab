@@ -18,11 +18,25 @@ class Create(Base):
             with open(self.vocabrc, "x") as f:
                 yaml.dump({"current_vocab": None}, f)
         new_vocab_file = os.path.join(self.vocab_dir, self.options["<name>"])
+        new_vocab_data = os.path.join(self.vocab_dir, self.options["<name>"] + ".dat")
         if not os.path.isfile(new_vocab_file):
             with open(new_vocab_file, "x") as f:
                 writer = csv.writer(f, delimiter=",")
                 writer.writerow(["key", "value"])
             self.update_current_vocab()
+            with open(new_vocab_data, "x") as f:
+                writer = csv.writer(f)
+                writer.writerow(
+                    [
+                        "key",
+                        "value",
+                        "date_added",
+                        "times_reviewed",
+                        "times_correct",
+                        "times_incorrect",
+                        "group",
+                    ]
+                )
         else:
             print(
                 "You already have a vocab under that name please try "

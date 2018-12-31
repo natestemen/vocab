@@ -14,6 +14,7 @@ PINYIN_TONES = {
     4: "\u00e0\u00f2\u00e8\u00ec\u00f9\u01dc\u01dc",
 }
 
+
 class Base(object):
     """A base command."""
 
@@ -21,8 +22,7 @@ class Base(object):
         self.options = options
         self.args = args
         self.kwargs = kwargs
-        self.home_dir = os.path.expanduser("~")
-        self.vocab_dir = os.path.join(self.home_dir, ".vocab")
+        self.vocab_dir = os.path.join(os.path.expanduser("~"), ".vocab")
         self.vocabrc = os.path.join(self.vocab_dir, "vocab.conf")
 
     def current_vocab(self):
@@ -33,6 +33,9 @@ class Base(object):
 
     def current_vocab_file(self):
         return os.path.join(self.vocab_dir, self.current_vocab())
+
+    def current_vocab_data(self):
+        return "".join([self.current_vocab_file(), ".dat"])
 
     def update_current_vocab(self):
         yaml = YAML()
@@ -48,20 +51,24 @@ class Base(object):
         r = ""
         t = ""
         for c in s:
-            if c in 'abcdefghijklmnopqrstuvwxyz? ':
+            if c in "abcdefghijklmnopqrstuvwxyz? ":
                 t += c
             else:
-                if c in '1234':
+                if c in "1234":
                     tone = int(c)
                     m = re.search("[aoeiu\u00fc]+", t)
                     if len(m.group(0)) == 1:
-                        t = t[:m.start(0)] + PINYIN_TONES[tone][PINYIN_TONES[0].index(m.group(0))] + t[m.end(0):]
+                        t = (
+                            t[: m.start(0)]
+                            + PINYIN_TONES[tone][PINYIN_TONES[0].index(m.group(0))]
+                            + t[m.end(0) :]
+                        )
                     else:
-                        if 'a' in t:
+                        if "a" in t:
                             t = t.replace("a", PINYIN_TONES[tone][0])
-                        elif 'o' in t:
+                        elif "o" in t:
                             t = t.replace("o", PINYIN_TONES[tone][1])
-                        elif 'e' in t:
+                        elif "e" in t:
                             t = t.replace("e", PINYIN_TONES[tone][2])
                         elif t.endswith("ui"):
                             t = t.replace("i", PINYIN_TONES[tone][3])
