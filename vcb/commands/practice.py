@@ -4,6 +4,7 @@ import os.path
 from random import shuffle
 
 import pandas as pd
+from numpy.random import choice
 from termcolor import colored
 
 from .base import Base
@@ -22,16 +23,24 @@ class Practice(Base):
             vocab_data["value"] = vocab_data.value.apply(
                 lambda s: "".join(l for l in s if not l.isdigit())
             )
+        metadata["probabilities"] = (10 - metadata.group) / 10
+        metadata["probabilities"] /= sum(metadata.probabilities)
         correct = 0
-        for _, row in vocab_data.iterrows():
-            metadata.loc[metadata.key == row["key"], "times_reviewed"] += 1
-            group = metadata.loc[metadata.key == row["key"], "group"].values[0]
+        reviewed = 0
+        while True:
+            idx = choice(range(len(metadata)), p=metadata.probabilities)
+            row = metadata.iloc[idx]
+            metadata.at[idx, "times_reviewed"] += 1
+            group = metadata.at[idx, "group"]
             print("Prompt:", colored(row["key"], attrs=["bold"]))
             guess = input()
+            if guess == "exit":
+                break
+            reviewed += 1
             if guess == row["value"]:
-                metadata.loc[metadata.key == row["key"], "times_correct"] += 1
+                metadata.at[idx, "times_correct"] += 1
                 if group < 10:
-                    metadata.loc[metadata.key == row["key"], "group"] += 1
+                    metadata.at[idx, "group"] += 1
                 correct += 1
                 print(colored("Correct!", "green"))
                 if self.options["--no-tones"]:
@@ -40,7 +49,7 @@ class Practice(Base):
                         colored(self.show_tones(row["tone"]), "yellow"),
                     )
             else:
-                metadata.loc[metadata.key == row["key"], "times_incorrect"] += 1
+                metadata.at[idx, "times_incorrect"] += 1
                 if group > 1:
                     metadata.loc[metadata.key == row["key"], "group"] -= 1
                 print(
@@ -48,5 +57,7 @@ class Practice(Base):
                     "it is",
                     colored(self.show_tones(row["value"]), "red", attrs=["underline"]),
                 )
+            metadata["probabilities"] = (10 - metadata.group) / 10
+            metadata["probabilities"] /= sum(metadata.probabilities)
         metadata.to_csv(self.current_vocab_data(), index=False)
-        print("Score:", correct, "/", len(vocab_data))
+        print("Score:", correct, "/", reviewed, "=", int(100 * correct / reviewed), "%")
